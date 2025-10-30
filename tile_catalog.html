@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог плитки</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #eee;
+    }
+    .info {
+      padding: 10px 15px 20px 15px;
+    }
+    .name {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .stock {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Каталог плитки на складе</h1>
+  <div class="grid" id="catalog"></div>
+
+  <script>
+    // Данные плитки (наименование + остаток)
+    const tiles = [
+      { name: 'Керамогранит AXIX GREY 800х1600', stock: 295 },
+      { name: 'Керамогранит CALACATTA MONET 800х1600', stock: 234 },
+      { name: 'Керамогранит ELEGANT GRIS 800х1600', stock: 304 },
+      { name: 'Керамогранит ELEGANT REALE 800х1600', stock: 296 },
+      { name: 'Керамогранит FONTANA ICE 800х1600', stock: 302 },
+      { name: 'Керамогранит LILAC WHITE 800х1600', stock: 24 },
+      { name: 'Керамогранит TS2G-1501-VISTA SATVARIO DARK GREY 600х1200', stock: 231 },
+      { name: 'Керамогранит TS2G-1502-VISTA SATVARIO BROWN 600х1200', stock: 337 },
+      { name: 'Керамогранит TS2G-1511-SATVARIO MARINA 600х1200', stock: 14 },
+      { name: 'Керамогранит TS2G-1515-TAJ BEIGE 600х1200', stock: 19 }
+    ];
+
+    const container = document.getElementById('catalog');
+
+    tiles.forEach(tile => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      // Формируем ссылку на картинку из Google Images
+      const query = encodeURIComponent(tile.name);
+      const imgSrc = `https://source.unsplash.com/600x400/?${query}`;
+
+      card.innerHTML = `
+        <img src="${imgSrc}" alt="${tile.name}" onerror="this.src='https://via.placeholder.com/600x400?text=Нет+изображения'">
+        <div class="info">
+          <div class="name">${tile.name}</div>
+          <div class="stock">Остаток: ${tile.stock} шт</div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
